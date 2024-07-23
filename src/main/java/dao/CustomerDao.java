@@ -226,19 +226,36 @@ public class CustomerDao {
 //		        }
 //		        return false;
 //		    }
-		 public boolean deleteCustomer(String accountNo) {
-		        try (Connection connection = DBConnection1.getConnection()) {
-		            String query = "DELETE FROM customer WHERE account_no = ?";
-		            PreparedStatement statement = connection.prepareStatement(query);
-		            statement.setString(1, accountNo);
+		public boolean deleteCustomer(String accountNo) {
+		    try (Connection connection = DBConnection1.getConnection()) {
+		        connection.setAutoCommit(false); // Start transaction
 
-		            int rowsDeleted = statement.executeUpdate();
+		        // Delete related transactions
+		        String deleteTransactionsQuery = "DELETE FROM transaction WHERE account_no = ?";
+		        try (PreparedStatement deleteTransactionsStmt = connection.prepareStatement(deleteTransactionsQuery)) {
+		            deleteTransactionsStmt.setString(1, accountNo);
+		            deleteTransactionsStmt.executeUpdate();
+		        }
+
+		        // Delete customer
+		        String deleteCustomerQuery = "DELETE FROM customer WHERE account_no = ?";
+		        try (PreparedStatement deleteCustomerStmt = connection.prepareStatement(deleteCustomerQuery)) {
+		            deleteCustomerStmt.setString(1, accountNo);
+		            int rowsDeleted = deleteCustomerStmt.executeUpdate();
+		            
+		            connection.commit(); // Commit transaction
 		            return rowsDeleted > 0;
 		        } catch (SQLException e) {
+		            connection.rollback(); // Rollback transaction if any error occurs
 		            e.printStackTrace();
+		            return false;
 		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
 		        return false;
-		    }  
+		    }
+		}
+
 		//Methods for addTransaction
 		public static boolean addTransaction(Transaction transaction) throws SQLException {
 		    String sql = "INSERT INTO transaction (account_no, amount, transaction_type, transaction_date) VALUES (?, ?, ?, ?)";

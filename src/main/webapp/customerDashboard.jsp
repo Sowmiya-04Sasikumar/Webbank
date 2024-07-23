@@ -111,6 +111,20 @@ String success = request.getParameter("success");
             display: none;
         }
     </style>
+     <script>
+        function updateTime() {
+            var now = new Date();
+            var formattedTime = now.getFullYear() + '-' + 
+                                ('0' + (now.getMonth() + 1)).slice(-2) + '-' + 
+                                ('0' + now.getDate()).slice(-2) + ' ' + 
+                                ('0' + now.getHours()).slice(-2) + ':' + 
+                                ('0' + now.getMinutes()).slice(-2) + ':' + 
+                                ('0' + now.getSeconds()).slice(-2);
+            document.getElementById('current-time').innerText = formattedTime;
+        }
+
+        setInterval(updateTime, 1000);
+    </script>
 </head>
 <body>
 
@@ -133,6 +147,10 @@ String success = request.getParameter("success");
     <% } %>
     <p>Account Number: <%= customer.getAccountNo() %></p>
     <p>Balance: <%= customer.getBalance() %></p>
+    <div class="side-header">
+            <p>Time: <span id="current-time"></span></p>
+        </div>
+    </div>
 
     <form action="CustomerController" method="post">
         <input type="hidden" name="action" value="deposit">
