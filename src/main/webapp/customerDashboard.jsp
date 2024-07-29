@@ -167,18 +167,7 @@ String success = request.getParameter("success");
         <input type="number" id="withdrawAmount" name="amount" required>
         <button type="submit">Withdraw</button>
     </form>
-
-  <%--   <form action="CustomerController" method="post">
-        <input type="hidden" name="action" value="transfer">
-        <input type="hidden" name="accountNo" value="<%= customer.getAccountNo() %>">
-        <label for="transferAmount">Transfer Amount:</label>
-        <input type="number" id="transferAmount" name="transferAmount" required>
-        <label for="transferAccountNo">Transfer Account No:</label>
-        <input type="text" id="transferAccountNo" name="transferAccountNo" required>
-        <button type="submit">Transfer</button>
-    </form> --%>
-
-    <form action="CustomerController" method="post">
+     <form action="CustomerController" method="post">
         <input type="hidden" name="action" value="viewTransactions">
         <button type="submit">View Transactions</button>
     </form>
@@ -194,12 +183,16 @@ String success = request.getParameter("success");
         <input type="password" id="confirmPassword" name="confirmPassword" required><br>
         <button type="submit">Change Password</button>
     </form>
-
+    <h2>Close Account</h2>
+    <form action="CloseAccountServlet" method="post">
+        Account Number: <input type="text" name="account_no" required><br>
+        Password: <input type="password" name="password" required><br>
+        <input type="submit" value="Close Account">
+    </form>
     <form id="logoutForm" action="CustomerController" method="post">
         <input type="hidden" name="action" value="logout">
         <button type="submit">Logout</button>
     </form>
-</div>
-
+    </div>
 </body>
 </html>
