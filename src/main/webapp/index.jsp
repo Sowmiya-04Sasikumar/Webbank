@@ -1,42 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.tracker.model.User" %>
-<%
-response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-if(session==null||session.getAttribute("user")==null){
-	response.sendRedirect("home.jsp");
-	return;
-}
-%>
-<%
-    User user = (User) session.getAttribute("user");
-    if (user == null) {
-        response.sendRedirect("login.jsp");
-    }
-%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Task Tracker</title>
-</head>
-<body>
-
-    <h1>Welcome, <%= user.getUsername() %>!</h1>
-    <form action=addTask.jsp>
-    <input type="hidden" name="action" value="add">
-    <input type="submit" value="AddTask">
-    </form>
-    
-    
-    <a href="TaskServlet?employeeName=<%= user.getUsername() %>">View Tasks</a>
-    <a href="charts.jsp?employeeName=<%=user.getUsername()%>">View Charts</a>
-</body>
-<form action="logout.jsp" method="post">
-        <input type="submit" value="Logout">
-    </form>
-</html>
- --%>
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.tracker.model.User" %>
 <%

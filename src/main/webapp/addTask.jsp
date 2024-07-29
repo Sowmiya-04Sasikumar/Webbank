@@ -106,39 +106,3 @@
 </body>
 </html>
 
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.tracker.model.User" %>
-<%
-    User user = (User) session.getAttribute("user");
-    if (user == null) {
-        response.sendRedirect("login.jsp");
-    }
-%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Task</title>
-</head>
-<body>
-    <h1>Add Task</h1>
-    <br>
-        <span style="color: red;">
-            <% if (request.getAttribute("error") != null) { %>
-                <%= request.getAttribute("error") %>
-            <% } %>
-        </span>
-        <br>
-    <form action="TaskServlet" method="post">
-        Project: <input type="text" name="project" required><br>
-        Date: <input type="date" name="date" required><br>
-        Start Time: <input type="time" name="start_time" required><br>
-        End Time: <input type="time" name="end_time" required><br>
-        Task Category: <input type="text" name="task_category" required><br>
-        Description: <textarea name="description" required></textarea><br>
-        <input type="hidden" name="action" value="add">
-        <button type="submit">Add Task</button>
-    </form>
-</body>
-</html>
- --%>
